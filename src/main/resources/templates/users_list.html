@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Users</title>
+    <div th:replace="fragment/header :: head"></div>
+</head>
+<body>
+<div>
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>First name</th>
+            <th>Last name</th>
+            <th>Username</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user : ${users}">
+            <td><span th:text="${user.id}"> ID </span></td>
+            <td><span th:text="${user.firstName}"> firstName </span></td>
+            <td><span th:text="${user.lastName}"> lastName </span></td>
+            <td><span th:text="${user.username}"> lastName </span></td>
+            <td><a th:href="@{/admin/edit(id=${user.id})}"> Edit </a></td>
+            <td><td><a th:href="@{/admin/delete(id=${user.id})}"> Delete </a></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <form method="post" th:action="@{/admin/create}" th:object="${user}">
+        <input id="firstName" placeholder="Enter First Name" required type="text" th:field="*{firstName}"/>
+        <input id="lastName" placeholder="Enter Last Name" required type="text" th:field="*{lastName}"/>
+        <input id="username" placeholder="Enter Last Name" required type="text" th:field="*{username}"/>
+        <input id="password" placeholder="Enter Last Name" required type="password" th:field="*{password}"/>
+        <input type="submit" value="Create User">
+    </form>
+
+
+</div>
+</body>
+</html>
