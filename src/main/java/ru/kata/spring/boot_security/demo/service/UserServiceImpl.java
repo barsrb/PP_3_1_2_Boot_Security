@@ -19,14 +19,13 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
-    private final RoleRepository roleRepository;
-
+    private final RoleService roleService;
     @Autowired
     public UserServiceImpl(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder,
-                           RoleRepository roleRepository) {
+                           RoleService roleService) {
         this.userRepository = userRepository;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
-        this.roleRepository = roleRepository;
+        this.roleService = roleService;
     }
 
     @Override
@@ -36,7 +35,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public void createUser(User user) {
-        Role userRole = roleRepository.findById(2L).get();
+        Role userRole = roleService.getRoleByID(2L);
         user.setRoles(Set.of(userRole));
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userRepository.save(user);
