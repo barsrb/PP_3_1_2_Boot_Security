@@ -40,7 +40,7 @@ public class AdminController {
     }
 
     @GetMapping(value = "/edit")
-    public String editUserForm(@RequestParam(value = "id", required=false, defaultValue = "0") long id,
+    public String editUserForm(@RequestParam(value = "id") long id,
                                @AuthenticationPrincipal User authUser,
                                ModelMap model) {
         model.addAttribute("user", userService.getUserByID(id));
