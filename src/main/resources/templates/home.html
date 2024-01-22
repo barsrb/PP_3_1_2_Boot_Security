@@ -1,14 +1,13 @@
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Home</title>
-</head>
+<head th:replace="fragment/header :: head"></head>
 <body>
-<div>
+<div class="container">
+    <header th:replace="fragment/header :: header"></header>
+    <main>
     <div><a href="/user/">User</a></div>
     <div><a href="/admin/">Admin</a></div>
+    </main>
 </div>
+<div th:replace="fragment/footer :: footer">...</div>
 </body>
 </html>

@@ -2,18 +2,17 @@ package ru.kata.spring.boot_security.demo.controller;
 
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import ru.kata.spring.boot_security.demo.model.User;
 
 @Controller
-@RequestMapping("/user/")
-public class UserController {
+public class HomeController {
 
     @GetMapping(value = "/")
-    public String userDetails(@AuthenticationPrincipal User authUser, ModelMap model) {
-        model.addAttribute("authUser", authUser);
-        return "user";
+    public String homePage(@AuthenticationPrincipal User authUser) {
+        if (authUser.getRoles().stream().anyMatch(role -> role.getAuthority().equals("ROLE_ADMIN"))) {
+            return "redirect:/admin/";
+        }
+        return "redirect:/user/";
     }
 }

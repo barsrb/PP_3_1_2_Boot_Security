@@ -1,29 +1,37 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Users</title>
-    <div th:replace="fragment/header :: head"></div>
-</head>
+<head th:replace="fragment/header :: head"></head>
 <body>
-<div>
-    <div>
-        User ID: <span th:text="${user.id}"> ID </span>
-    </div>
-    <div>
-        First name: <span th:text="${user.firstName}"> ID </span>
-    </div>
-    <div>
-        Last name: <span th:text="${user.lastName}"> ID </span>
-    </div>
-    <div>
-        Username: <span th:text="${user.username}"> ID </span>
-    </div>
-    <div>Roles:
-        <div th:each="role : ${user.roles}"><span th:text="${role.authority}"> ID </span></div>
-    </div>
-
+<div class="container">
+    <header th:replace="fragment/header :: header"></header>
+    <main>
+        <div class="col-4">
+            <table class="table">
+                <tr>
+                    <td>User ID: </td>
+                    <td>[(${authUser.id})]</td>
+                </tr>
+                <tr>
+                    <td>First name: </td>
+                    <td>[(${authUser.firstName})]</td>
+                </tr>
+                <tr>
+                    <td>Last Name: </td>
+                    <td>[(${authUser.lastName})]</td>
+                </tr>
+                <tr>
+                    <td>Username: </td>
+                    <td>[(${authUser.username})]</td>
+                </tr>
+                <tr>
+                    <td>Roles:</td>
+                    <td><div th:each="role : ${authUser.roles}">[(${role.authority})]</div></td>
+                </tr>
+            </table>
+        </div>
+    </main>
 </div>
+<div th:replace="fragment/footer :: footer">...</div>
 </body>
 </html>

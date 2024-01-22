@@ -1,21 +1,29 @@
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Users</title>
-    <div th:replace="fragment/header :: head"></div>
-</head>
+<head th:replace="fragment/header :: head"></head>
 <body>
-<div>
-    <form method="post" th:action="@{/admin/edit}" th:object="${user}">
+<div class="container">
+    <header th:replace="fragment/header :: header"></header>
+    <main>
+    <form class="form" method="post" th:action="@{/admin/edit}" th:object="${user}">
         <input type="hidden" th:field="*{id}" id="id">
-        <input id="firstName" placeholder="Edit First Name" required type="text" th:field="*{firstName}"/>
-        <input id="lastName" placeholder="Edit Last Name" required type="text" th:field="*{lastName}"/>
-        <input id="username" placeholder="Edit Username" required type="text" th:field="*{username}"/>
-        <input type="submit" value="Save User">
+        <div class="mb-3">
+            <label for="firstName" class="form-label">First Name</label>
+            <input type="text" class="form-control" id="firstName" placeholder="Edit First Name" th:field="*{firstName}">
+        </div>
+        <div class="mb-3">
+            <label for="lastName" class="form-label">Last Name</label>
+            <input type="text" class="form-control" id="lastName" placeholder="Edit Last Name" th:field="*{lastName}">
+        </div>
+        <div class="mb-3">
+            <label for="username" class="form-label">Username</label>
+            <input type="text" class="form-control" id="username" placeholder="Edit username" th:field="*{username}">
+        </div>
+        <div class="col">
+            <button type="submit" class="btn btn-primary">Save User</button>
+        </div>
     </form>
-
+    </main>
 </div>
+<div th:replace="fragment/footer :: footer">...</div>
 </body>
 </html>
