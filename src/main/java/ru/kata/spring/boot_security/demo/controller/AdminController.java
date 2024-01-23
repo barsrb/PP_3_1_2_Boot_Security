@@ -6,17 +6,22 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import ru.kata.spring.boot_security.demo.model.User;
+import ru.kata.spring.boot_security.demo.service.RoleService;
 import ru.kata.spring.boot_security.demo.service.UserService;
+
+import java.util.Set;
 
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
 
     private final UserService userService;
+    private final RoleService roleService;
 
     @Autowired
-    public AdminController(UserService userService) {
+    public AdminController(UserService userService, RoleService roleService) {
         this.userService = userService;
+        this.roleService = roleService;
     }
 
     @GetMapping(value = "/")
@@ -29,6 +34,7 @@ public class AdminController {
 
     @PostMapping(value = "/create")
     public String createUser(@ModelAttribute User user, ModelMap model) {
+        user.setRoles(Set.of(roleService.getRoleByID(2L)));
         userService.createUser(user);
         return "redirect:/";
     }
