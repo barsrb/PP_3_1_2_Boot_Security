@@ -2,6 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <html lang="en">
 <head th:replace="fragment/header :: head"></head>
+<script src="/static/user.js"></script>
+
 <body>
 <div class="container">
     <header th:replace="fragment/header :: header"></header>
@@ -10,23 +12,23 @@
             <table class="table">
                 <tr>
                     <td>User ID: </td>
-                    <td>[(${authUser.id})]</td>
+                    <td id="user_id"></td>
                 </tr>
                 <tr>
                     <td>First name: </td>
-                    <td>[(${authUser.firstName})]</td>
+                    <td id="first_name"></td>
                 </tr>
                 <tr>
                     <td>Last Name: </td>
-                    <td>[(${authUser.lastName})]</td>
+                    <td id="last_name"></td>
                 </tr>
                 <tr>
                     <td>Username: </td>
-                    <td>[(${authUser.username})]</td>
+                    <td id="username"></td>
                 </tr>
                 <tr>
                     <td>Roles:</td>
-                    <td><div th:each="role : ${authUser.roles}">[(${role.authority})]</div></td>
+                    <td id="roles"></td>
                 </tr>
             </table>
         </div>

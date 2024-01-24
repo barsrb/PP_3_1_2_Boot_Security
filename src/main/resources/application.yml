@@ -5,3 +5,7 @@ spring:
     url: jdbc:postgresql://127.0.0.1:5432/spring_secutiry
     username: spring_secutiry
     password: spring_secutiry
+
+
+  mvc:
+    static-path-pattern: "/static/**"

@@ -5,15 +5,25 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 import ru.kata.spring.boot_security.demo.model.User;
 
-@Controller
+@RestController
 @RequestMapping("/user/")
 public class UserController {
 
-    @GetMapping(value = "/")
-    public String userDetails(@AuthenticationPrincipal User authUser, ModelMap model) {
-        model.addAttribute("authUser", authUser);
-        return "user";
+    @GetMapping(value = "/getDetails")
+    public User userDetails(@AuthenticationPrincipal User authUser) {
+        return authUser;
+    }
+
+
+
+    @GetMapping (value = "/")
+    public ModelAndView userPage() {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("user");
+        return modelAndView;
     }
 }

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head th:replace="fragment/header :: head"></head>
+<script src="/static/admin.js"></script>
+
+<body>
+<div class="container">
+    <header th:replace="fragment/header :: header"></header>
+    <main>
+        <table class="table" id="users_table">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>First name</th>
+                <th>Last name</th>
+                <th>Username</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+
+        <button type="button" id="new_user_btn"  class="btn btn-outline-primary" onclick="showUserForm(0)">New user</button>
+
+        <div id="user_form_div" style="display: none">
+            <form id="user_form" class="row align-items-center" method="post" action="/admin/create">
+                <input type="hidden" id="user_id">
+                <div class="col">
+                    <div class="input-group">
+                        <div class="input-group-text">First Name</div>
+                        <input type="text" class="form-control" id="firstName" placeholder="First Name">
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="input-group">
+                        <div class="input-group-text">Last Name</div>
+                        <input type="text" class="form-control" id="lastName" placeholder="Last Name">
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="input-group">
+                        <div class="input-group-text">Username</div>
+                        <input type="text" class="form-control" id="username" placeholder="Username">
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="input-group">
+                        <div class="input-group-text">Password</div>
+                        <input type="password" class="form-control" id="password" placeholder="Password">
+                    </div>
+                </div>
+                <div class="col">
+                    <button type="button" class="btn btn-primary" onclick="submitUserForm()">Save User</button>
+                </div>
+            </form>
+        </div>
+
+    </main>
+</div>
+<div th:replace="fragment/footer :: footer">...</div>
+</body>
+</html>
