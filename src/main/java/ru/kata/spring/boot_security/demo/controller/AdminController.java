@@ -40,7 +40,7 @@ public class AdminController {
         return userService.getUserByID(id);
     }
 
-    @PostMapping(value = "/create", consumes = "application/json", produces = "application/json")
+    @PostMapping(value = "/create")
     public User createUser(@RequestBody User user) {
         user.setRoles(Set.of(roleService.getRoleByID(2L)));
         userService.createUser(user);
@@ -53,7 +53,7 @@ public class AdminController {
         return "";
     }
 
-    @PostMapping(value = "/edit", consumes = "application/json", produces = "application/json")
+    @PostMapping(value = "/edit")
     public User editUser(@RequestBody User user) {
         userService.editUser(user);
         return user;

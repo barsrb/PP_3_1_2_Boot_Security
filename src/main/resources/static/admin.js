@@ -22,7 +22,7 @@ function loadUsers() {
 function showUserForm(user_id) {
     $("#user_form_div").show();
     $('#user_form')[0].reset();
-    $("#user_id").text("");
+    $("#user_id").val("");
 
     if (user_id != 0) {
         $.get( "/admin/getUserDetails?id="+user_id.toString(), function(user) {
