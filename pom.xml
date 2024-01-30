@@ -55,11 +55,13 @@
 			<artifactId>postgresql</artifactId>
 			<version>42.2.27</version>
 		</dependency>
+
 		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-test</artifactId>
-			<scope>test</scope>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
 		</dependency>
+
+
 	</dependencies>
 
 	<build>

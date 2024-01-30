@@ -7,33 +7,39 @@
 <body>
 <div class="container">
     <header th:replace="fragment/header :: header"></header>
-    <main>
-        <div class="col-4">
-            <table class="table">
-                <tr>
-                    <td>User ID: </td>
-                    <td id="user_id"></td>
-                </tr>
-                <tr>
-                    <td>First name: </td>
-                    <td id="first_name"></td>
-                </tr>
-                <tr>
-                    <td>Last Name: </td>
-                    <td id="last_name"></td>
-                </tr>
-                <tr>
-                    <td>Username: </td>
-                    <td id="username"></td>
-                </tr>
-                <tr>
-                    <td>Roles:</td>
-                    <td id="roles"></td>
-                </tr>
-            </table>
+    <div class="row">
+        <div th:replace="fragment/header :: left_menu" class="col-2">
+
         </div>
-    </main>
-</div>
-<div th:replace="fragment/footer :: footer">...</div>
+        <div class="col-10">
+            <main>
+                <div class="col-4">
+                    <table class="table">
+                        <tr>
+                            <td>User ID:</td>
+                            <td id="user_id"></td>
+                        </tr>
+                        <tr>
+                            <td>First name:</td>
+                            <td id="first_name"></td>
+                        </tr>
+                        <tr>
+                            <td>Last Name:</td>
+                            <td id="last_name"></td>
+                        </tr>
+                        <tr>
+                            <td>Username:</td>
+                            <td id="username"></td>
+                        </tr>
+                        <tr>
+                            <td>Roles:</td>
+                            <td id="roles"></td>
+                        </tr>
+                    </table>
+                </div>
+            </main>
+        </div>
+    </div>
+    <div th:replace="fragment/footer :: footer">...</div>
 </body>
 </html>

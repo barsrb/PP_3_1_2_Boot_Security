@@ -7,59 +7,128 @@
 <body>
 <div class="container">
     <header th:replace="fragment/header :: header"></header>
-    <main>
-        <table class="table" id="users_table">
-            <thead>
-            <tr>
-                <th>ID</th>
-                <th>First name</th>
-                <th>Last name</th>
-                <th>Username</th>
-                <th>Edit</th>
-                <th>Delete</th>
-            </tr>
-            </thead>
-            <tbody>
+    <div class="row">
+        <div th:replace="fragment/header :: left_menu" class="col-2">
 
-            </tbody>
-        </table>
-
-        <button type="button" id="new_user_btn"  class="btn btn-outline-primary" onclick="showUserForm(0)">New user</button>
-
-        <div id="user_form_div" style="display: none">
-            <form id="user_form" class="row align-items-center" method="post" action="/admin/create">
-                <input type="hidden" id="user_id">
-                <div class="col">
-                    <div class="input-group">
-                        <div class="input-group-text">First Name</div>
-                        <input type="text" class="form-control" id="firstName" placeholder="First Name">
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="input-group">
-                        <div class="input-group-text">Last Name</div>
-                        <input type="text" class="form-control" id="lastName" placeholder="Last Name">
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="input-group">
-                        <div class="input-group-text">Username</div>
-                        <input type="text" class="form-control" id="username" placeholder="Username">
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="input-group">
-                        <div class="input-group-text">Password</div>
-                        <input type="password" class="form-control" id="password" placeholder="Password">
-                    </div>
-                </div>
-                <div class="col">
-                    <button type="button" class="btn btn-primary" onclick="submitUserForm()">Save User</button>
-                </div>
-            </form>
         </div>
+        <div class="col-10">
+            <main>
+                <ul class="nav nav-tabs mb-3" id="ex1">
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link active"
+                           id="tab_btn_userlist"
+                           href="#ex1-tabs-1"
+                           role="tab"
+                           aria-controls="ex1-tabs-1"
+                           aria-selected="true"
+                           onclick="showTab('tab_userlist')"
+                        >
+                            Users list
+                        </a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a      class="nav-link"
+                                id="tab_btn_userform"
+                                href="#ex1-tabs-2"
+                                role="tab"
+                                aria-controls="ex1-tabs-2"
+                                aria-selected="false"
+                                onclick="showTab('tab_userform')">
+                            New user
+                        </a>
+                    </li>
+                </ul>
+                <div class="tab-content" >
+                    <div
+                            class="tab-pane fade show active"
+                            id="tab_userlist"
+                            role="tabpanel"
+                            aria-labelledby="ex1-tab-1"
+                    >
+                        <table class="table" id="users_table">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>First name</th>
+                                <th>Last name</th>
+                                <th>Username</th>
+                                <th>Edit</th>
+                                <th>Delete</th>
+                            </tr>
+                            </thead>
+                            <tbody>
 
-    </main>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="tab-pane fade" id="tab_userform" role="tabpanel" aria-labelledby="ex1-tab-2">
+                        <div id="user_form_div">
+                            <form id="user_form">
+                                <input type="hidden" id="user_id">
+                                <div class="form-group">
+                                        <label for="firstName">First Name</label>
+                                        <input type="text" class="form-control" id="firstName" placeholder="First Name">
+                                </div>
+                                <div class="form-group">
+                                        <label for="lastName">Last Name</label>
+                                        <input type="text" class="form-control" id="lastName" placeholder="Last Name">
+                                </div>
+                                <div class="form-group">
+                                        <label for="username">Username</label>
+                                        <input type="text" class="form-control" id="username" placeholder="Username">
+                                </div>
+                                <div class="form-group">
+                                        <label for="password">Password</label>
+                                        <input type="password" class="form-control" id="password" placeholder="Password">
+                                </div>
+                                <div class="form-group">
+                                    <button type="button" class="btn btn-primary" onclick="submitUserForm()">Save User</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </main>
+        </div>
+    </div>
+
+</div>
+<div class="modal fade" id="modal_form" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">User form</h5>
+            </div>
+            <div class="modal-body">
+                <form id="modal_user_form">
+                    <input type="hidden" id="modal_user_id">
+                    <input type="hidden" id="modal_action">
+                    <div class="form-group">
+                            <label for="modal_firstName">First Name</label>
+                            <input type="text" class="form-control" id="modal_firstName" placeholder="First Name">
+                        </div>
+                        <div class="form-group">
+                            <label for="modal_lastName">Last Name</label>
+                            <input type="text" class="form-control" id="modal_lastName" placeholder="Last Name">
+                        </div>
+                        <div class="form-group">
+                            <label for="modal_username">Username</label>
+                            <input type="text" class="form-control" id="modal_username" placeholder="Username">
+                        </div>
+                        <div class="form-group">
+                            <label for="modal_password">Password</label>
+                            <input type="password" class="form-control" id="modal_password" placeholder="Password">
+                        </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal_form" onclick="$('#modal_form').modal('hide');">Close</button>
+                <button id="modal_submit" type="button" class="btn" onclick="submitModalForm();">Save changes</button>
+            </div>
+        </div>
+    </div>
 </div>
 <div th:replace="fragment/footer :: footer">...</div>
 </body>

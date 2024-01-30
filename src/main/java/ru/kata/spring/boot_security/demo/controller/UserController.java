@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import ru.kata.spring.boot_security.demo.model.User;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @RestController
 @RequestMapping("/user/")
 public class UserController {
@@ -25,5 +28,18 @@ public class UserController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("user");
         return modelAndView;
+    }
+
+    @GetMapping (value = "/getAllowedPages")
+    public Map<String, String> getAllowedPages(@AuthenticationPrincipal User authUser) {
+        Map<String, String> pages = new HashMap<>();
+        authUser.getAuthorities().forEach(role -> {
+            if (role.getAuthority().equals("ROLE_ADMIN")) {
+                pages.put("/admin/", "Admin page");
+            } else if (role.getAuthority().equals("ROLE_USER")) {
+                pages.put("/user/", "User page");
+            }
+        });
+        return pages;
     }
 }
