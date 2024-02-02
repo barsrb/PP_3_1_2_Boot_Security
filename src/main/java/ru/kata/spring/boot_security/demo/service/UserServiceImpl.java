@@ -55,8 +55,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         } else {
             user.setPassword(userRepository.findById(user.getId()).get().getPassword());
         }
-        user.setRoles(userRepository.findById(user.getId()).get().getRoles());
-
         userRepository.save(user);
     }
 

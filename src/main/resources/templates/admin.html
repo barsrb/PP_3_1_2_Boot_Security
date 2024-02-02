@@ -52,6 +52,7 @@
                                 <th>First name</th>
                                 <th>Last name</th>
                                 <th>Username</th>
+                                <th>Roles</th>
                                 <th>Edit</th>
                                 <th>Delete</th>
                             </tr>
@@ -81,6 +82,12 @@
                                 <div class="form-group">
                                         <label for="password">Password</label>
                                         <input type="password" class="form-control" id="password" placeholder="Password">
+                                </div>
+                                <div class="form-group">
+                                    <label for="roles">Roles</label>
+                                    <select class="form-select" id="roles" multiple aria-label="multiple select example">
+
+                                    </select>
                                 </div>
                                 <div class="form-group">
                                     <button type="button" class="btn btn-primary" onclick="submitUserForm()">Save User</button>
@@ -121,6 +128,11 @@
                             <label for="modal_password">Password</label>
                             <input type="password" class="form-control" id="modal_password" placeholder="Password">
                         </div>
+                        <div class="form-group">
+                        <label for="roles">Roles</label>
+                        <select class="form-select" id="modal_roles" multiple aria-label="multiple select example">
+                        </select>
+                    </div>
                 </form>
             </div>
             <div class="modal-footer">

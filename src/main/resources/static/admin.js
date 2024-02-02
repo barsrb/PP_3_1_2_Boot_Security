@@ -1,5 +1,7 @@
+var roles = []
 $(document).ready(function() {
     loadUsers();
+    loadRoles();
 })
 
 
@@ -9,15 +11,32 @@ function loadUsers() {
         var users = users_rest
         jQuery.each(users, function(i, user) {
         user_id_str = user.id.toString();
+        user_roles = "";
+        user.roles.forEach(function(role) {
+             user_roles = user_roles + role.authority + " "
+           });
          $("#users_table").append("<tr id=\"user_row_" + user_id_str + "\">" +
          "<td id=\"user_id_" + user_id_str + "\">" + user_id_str + "</td>" +
          "<td id=\"user_firstname_" + user_id_str + "\">" + user.firstName + "</td>" +
          "<td id=\"user_lastname_" + user_id_str + "\">" + user.lastName + "</td>" +
          "<td id=\"user_username_" + user_id_str + "\">" + user.username + "</td>" +
+         "<td id=\"user_roles_" + user_id_str + "\">" + user_roles + "</td>" +
          "<td><button type=\"button\" class=\"btn btn-outline-primary btn-sm\" onclick=\"showModal("+user_id_str+", 'edit')\">Edit</button></td>" +
          "<td><button type=\"button\" class=\"btn btn-outline-danger btn-sm\" onclick=\"showModal("+user_id_str+", 'delete')\">Delete</button></td>" +
          "</tr>");
         });
+    });
+}
+
+function loadRoles() {
+    $.get( "/admin/getRoles", function( roles_rest ) {
+        jQuery.each(roles_rest, function(i, role) {
+            roles[parseInt(role.id)] = role.authority;
+            $('#roles').append($("<option></option>")
+                .attr("value", parseInt(role.id))
+                .text(role.authority));
+
+        })
     });
 }
 
@@ -64,6 +83,16 @@ function showModal(user_id, action) {
     $("#modal_username").val($("#user_username_" + user_id).text());
 
 
+    $('#modal_roles').find('option').remove();
+
+    roles.forEach((role, id) => {
+        selected = $("#user_roles_" + user_id).text().includes(role)?true:false;
+        $('#modal_roles').append($("<option></option>")
+            .attr("value", parseInt(id))
+            .text(role)
+            .prop('selected', selected) )
+    })
+
     $('#modal_form').modal('show');
 
 }
@@ -74,7 +103,15 @@ function submitUserForm() {
         "lastName": $("#lastName").val(),
         "username": $("#username").val(),
         "password": $("#password").val(),
+        "roles": []
     }
+
+    user_roles = ""
+    $("#roles").val().forEach((role_id) => {
+            user['roles'].push(parseInt(role_id));
+            user_roles = user_roles + roles[parseInt(role_id)] + " "
+        });
+
 
     $.ajax("/admin/create", {
         data : JSON.stringify(user),
@@ -87,6 +124,7 @@ function submitUserForm() {
                      "<td id=\"user_firstname_" + new_id + "\">" + $("#firstName").val() + "</td>" +
                      "<td id=\"user_lastname_" + new_id + "\">" + $("#lastName").val() + "</td>" +
                      "<td id=\"user_username_" + new_id + "\">" + $("#username").val() + "</td>" +
+                     "<td id=\"user_roles_" + new_id + "\">" + user_roles + "</td>" +
                      "<td><button type=\"button\" class=\"btn btn-outline-primary btn-sm\" onclick=\"showModal("+new_id+", 'edit')\">Edit</button></td>" +
                      "<td><button type=\"button\" class=\"btn btn-outline-danger btn-sm\" onclick=\"showModal("+new_id+", 'delete')\">Delete</button></td>" +
                      "</tr>");
@@ -113,16 +151,26 @@ function submitModalForm() {
             "lastName": $("#modal_lastName").val(),
             "username": $("#modal_username").val(),
             "password": $("#modal_password").val(),
+            "roles": []
         }
+
+        $("#modal_roles").val().forEach((role_id) => user['roles'].push(parseInt(role_id)));
 
         $.ajax("/admin/edit", {
             data : JSON.stringify(user),
             contentType : 'application/json',
             type : 'POST',
             success: function() {
+             user_roles = ""
+                $("#modal_roles").val().forEach((role_id) => {
+                        user_roles = user_roles + roles[parseInt(role_id)] + " "
+                    });
+
                 $("#user_firstname_"+user_id).text($("#modal_firstName").val())
                 $("#user_lastname_"+user_id).text($("#modal_lastName").val())
                 $("#user_username_"+user_id).text($("#modal_username").val())
+                $("#user_roles_"+user_id).text(user_roles)
+
                 $('#modal_form').modal('hide');
             }
         })

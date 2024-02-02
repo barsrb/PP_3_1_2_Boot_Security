@@ -36,6 +36,7 @@ public class UserController {
         authUser.getAuthorities().forEach(role -> {
             if (role.getAuthority().equals("ROLE_ADMIN")) {
                 pages.put("/admin/", "Admin page");
+                pages.put("/user/", "User page");
             } else if (role.getAuthority().equals("ROLE_USER")) {
                 pages.put("/user/", "User page");
             }

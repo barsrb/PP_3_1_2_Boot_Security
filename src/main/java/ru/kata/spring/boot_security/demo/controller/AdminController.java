@@ -3,6 +3,7 @@ package ru.kata.spring.boot_security.demo.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.service.RoleService;
 import ru.kata.spring.boot_security.demo.service.UserService;
@@ -35,6 +36,11 @@ public class AdminController {
         return userService.getAllUsers();
     }
 
+    @GetMapping (value = "/getRoles")
+    public List<Role> getRoles() {
+        return roleService.getAllRoles();
+    }
+
     @GetMapping (value = "/getUserDetails")
     public User getUserDetails(@RequestParam(value = "id") long id) {
         return userService.getUserByID(id);
@@ -42,7 +48,9 @@ public class AdminController {
 
     @PostMapping(value = "/create")
     public User createUser(@RequestBody User user) {
-        user.setRoles(Set.of(roleService.getRoleByID(2L)));
+        if (user.getRoles().isEmpty()) {
+            user.setRoles(Set.of(roleService.getRoleByID(2L)));
+        }
         userService.createUser(user);
         return user;
     }
